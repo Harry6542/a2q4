@@ -39,3 +39,13 @@ def copy_dict_of_dicts(data: dict) -> dict:
             new_dict[key] = value  # Copy non-dictionary values
     return new_dict
 def deep_copy_list_of_dicts(data: list) -> list:
+    new_list = []
+    for item in data:
+        new_dict = {}
+        for key, value in item.items():
+            if isinstance(value, dict):
+                new_dict[key] = value.copy()
+            else:
+                new_dict[key] = value
+        new_list.append(new_dict)
+    return new_list
