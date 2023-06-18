@@ -178,5 +178,173 @@ def test_partA():
     ls_ran, ls_fail = test_ls()
     dict_ran, dict_fail = test_dict()
     return ls_ran + dict_ran, ls_fail, dict_fail
+def test_partB():
+    def test_lsdict():
+        tests_ran = 0
+        fails = 0
+        case1 = []
+        case2 = [{"a": 30,
+                  "b": 50},
+                 {}]
+        case3 = [{"a": 90,
+                  "b": 19},
+                 {"a": 20,
+                  "b": 12}]
+        test_case = [
+            {"input": case1,
+             "output": deep_copy_list_of_dicts(case1),
+             "reason": "Empty list should not impact function success"},
+            {"input": case2,
+             "output": deep_copy_list_of_dicts(case2),
+             "reason": "Dict with one internal blank dict should still be able to be copied"},
+            {"input": case3,
+             "output": deep_copy_list_of_dicts(case3),
+             "reason": "References should be different for internal dicts too"}
+        ]
+        for test in test_case:
+            # Testing references to differ
+            if test["input"] is test["output"]:
+                fails += 1
+                print("Test Deep Copy \nERROR: References are the same\n", test)
+            # Lists should still be equal
+            if test["input"] != test["output"]:
+                fails += 1
+                print("Test Deep Copy \nERROR: Values are not the same\n", test)
+            # Changing list test["input"] should not impact list in test["output"]
+            test["input"].append({"z": 9})
+            if test["input"] == test["output"]:
+                fails += 1
+                print("Test Deep Copy \nERROR: Outer list values should no longer be the the same\n", test)
+            # Reset test["input"]
+            test["input"].pop()
+            # Just ran 3 tests
+            tests_ran += 3
+            # Checking internal dicts are also deep copied
+            if len(test["input"]) > 0 and len(test["input"][-1]) > 0:
+                tests_ran += 1
+                test["input"][-1]["z"] = 8
+                if test["input"] == test["output"]:
+                    fails += 1
+                    print("Test Deep Copy \nERROR: Inner list values should no longer be the the same\n", test)
+                # reset test["input"]
+                test["input"][-1].pop("z")
+        return tests_ran, fails
+
+    def test_remove():
+        tests_ran = 0
+        fails = 0
+        case1 = [[], [4]]
+        case2 = [[1, 2, 3], [45, 2, 14], [78, 47, 3, 56], [9, 3, 7]]
+        case3 = [[1, 2, 1], [1, 2, 3], [1, 23, 4], [1, 21]]
+        test_case = [
+            {"input": (case1, 4),
+             "output": remove_from_2DList(case1, 4),
+             "reason": "Empty list should not impact function success"},
+            {"input": (case1, 2),
+             "output": remove_from_2DList(case1, 2),
+             "reason": "Removing value that does not exist should not impact function success"},
+            {"input": (case2, 3),
+             "output": remove_from_2DList(case2, 3),
+             "reason": "Lists of different sizes should not impact function success"},
+            {"input": (case3, 1),
+             "output": remove_from_2DList(case3, 1),
+             "reason": "Internal lists should not impact function success"}
+        ]
+        for test in test_case:
+            # Testing references should be same
+            if test["input"][0] is not test["output"]:
+                fails += 1
+                print("Test Remove \nERROR: References are not the same\n", test)
+
+            # Lists should still be equal
+            if test["input"][0] != test["output"]:
+                fails += 1
+                print("Test Remove \nERROR: Values are not the same\n", test)
+
+            # Changing list test["input"] should impact list in test["output"]
+            test["input"][0].append([3])
+            if test["input"][0] != test["output"]:
+                fails += 1
+                print("Test Remove \nERROR: Outer list values should no longer be the the same\n", test)
+            # Reset test["input"]
+            test["input"][0].pop()
+
+            # Value should be removed from inner lists
+            for inner in test["output"]:
+                if test["input"][1] in inner:
+                    fails += 1
+                    print("Test Remove \nERROR: \n", test, "In internal list(s):\n", inner)
+
+            # Just ran 4 tests
+            tests_ran += 4
+            # Checking internal lists are also shallow copied
+            if len(test["input"][0]) > 0 and len(test["input"][0][0]) > 0:
+                tests_ran += 1
+                test["input"][0][0].append(8)
+                if test["input"][0] != test["output"]:
+                    fails += 1
+                    print("Test Remove \nERROR: Inner list values should be the the same\n", test)
+                # reset test["input"][0]
+                test["input"][0][0].pop()
+        return tests_ran, fails
+
+    def test_filter():
+        tests_ran = 0
+        fails = 0
+        case1 = [[], [4]]
+        case2 = [[1, 2, 3], [45, 2, 14], [78, 47, 3, 56], [9, 3, 7]]
+        case3 = [[1, 2, 1], [1, 2, 3], [3, 23, 4], [1, 1]]
+        test_case = [
+            {"input": (case1, 4),
+             "output": filter_from_2DList(case1, 4),
+             "reason": "Empty list should not impact function success"},
+            {"input": (case1, 2),
+             "output": filter_from_2DList(case1, 2),
+             "reason": "Removing value that does not exist should not impact function success"},
+            {"input": (case2, 3),
+             "output": filter_from_2DList(case2, 3),
+             "reason": "Lists of different sizes should not impact function success"},
+            {"input": (case3, 1),
+             "output": filter_from_2DList(case3, 1),
+             "reason": "Internal lists should not impact function success"}
+        ]
+        for test in test_case:
+            # Testing references should not be same
+            if test["input"][0] is test["output"]:
+                fails += 1
+                print("Test Filter \nERROR: References are the same\n", test)
+
+            # Changing list test["input"] should not impact list in test["output"]
+            test["input"][0].append([3])
+            if test["input"][0] == test["output"]:
+                fails += 1
+                print("Test Filter \nERROR: Outer list values should no longer be the the same\n", test)
+            # Reset test["input"]
+            test["input"][0].pop()
+
+            # Value should be removed from inner lists
+            for inner in test["output"]:
+                if test["input"][1] in inner:
+                    fails += 1
+                    print("Test Filter \nERROR: \n", test, "In internal list(s):\n", inner)
+
+            # Just ran 4 tests
+            tests_ran += 4
+
+            # Checking internal lists are also different references
+            if len(test["input"][0]) > 0 and len(test["input"][0][-1]) > 0:
+                tests_ran += 1
+                test["input"][0][-1].append(8)
+                if test["input"][0] == test["output"]:
+                    fails += 1
+                    print("Test Filter \nERROR: Inner list values should not be the the same\n", test)
+                # reset test["input"][-1]
+                test["input"][0][-1].pop()
+        return tests_ran, fails
+
+    lsdict_ran, lsdict_fail = test_lsdict()
+    rm_ran, rm_fail = test_remove()
+    filt_ran, filt_fail = test_filter()
+    return lsdict_ran + rm_ran + filt_ran, lsdict_fail, rm_fail, filt_fail
 
 
