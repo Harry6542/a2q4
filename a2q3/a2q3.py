@@ -30,3 +30,4 @@ def copy_list_of_lists(data: list) -> list:
         new_sublist = sublist.copy()
         new_list.append(new_sublist)
     return new_list
+def copy_dict_of_dicts(data: dict) -> dict:
