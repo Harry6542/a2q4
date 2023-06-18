@@ -346,5 +346,55 @@ def test_partB():
     rm_ran, rm_fail = test_remove()
     filt_ran, filt_fail = test_filter()
     return lsdict_ran + rm_ran + filt_ran, lsdict_fail, rm_fail, filt_fail
+def run_tests(run_all=False):
+    def stats(Arun, Als, Adict, Brun, Bcp, Brm, Bflt):
+        print("Total Tests Ran: ", Arun + Brun)
+        print("PartA Tests Ran: ", Arun)
+        print("PartA Fails:", Als + Adict)
+        print("\t List of List Fails:", Als)
+        print("\t Dict of Dicts Fails:", Adict)
+        print("PartB Tests Ran: ", Brun)
+        print("PartB Fails:", Bcp + Brm + Bflt)
+        print("\t List of Dicts Fails:", Bcp)
+        print("\t Remove From List Of List Fails:", Brm)
+        print("\t Filter List Of List Fails:", Bflt)
+        exit()
 
+    PartARan, PartA_ls, PartA_dict = test_partA()
+    if run_all:
+        PartBRan, PartB_dpcp, PartB_rm, PartB_filt = test_partB()
+        stats(PartARan, PartA_ls, PartA_dict, PartBRan, PartB_dpcp, PartB_rm, PartB_filt)
+    if PartA_ls > 0:
+        print("FINISH copy_list_of_lists BEFORE GOING ON")
+        print("copy_list_of_lists HAS: ", PartA_ls, "FAILS")
+        print("DON'T FORGET TO COMMIT")
+        exit()
+    if PartA_dict > 0:
+        print("FINISH copy_dict_of_dicts BEFORE GOING ON")
+        print("copy_dict_of_dicts HAS: ", PartA_dict, "FAILS")
+        print("DON'T FORGET TO COMMIT")
+        exit()
+    PartBRan, PartB_dpcp, PartB_rm, PartB_filt = test_partB()
+    if PartB_dpcp > 0:
+        print("FINISH deep_copy_list_of_dicts BEFORE GOING ON")
+        print("deep_copy_list_of_dicts HAS: ", PartB_dpcp, "FAILS")
+        print("DON'T FORGET TO COMMIT")
+        exit()
+    if PartB_rm > 0:
+        print("FINISH remove_from_2DList BEFORE GOING ON")
+        print("remove_from_2DList HAS: ", PartB_rm, "FAILS")
+        print("DON'T FORGET TO COMMIT")
+        exit()
+    if PartB_rm > 0:
+        print("FINISH filter_from_2DList BEFORE GOING ON")
+        print("filter_from_2DList HAS: ", PartB_filt, "FAILS")
+        print("DON'T FORGET TO COMMIT")
+        exit()
+    else:
+        stats(PartARan, PartA_ls, PartA_dict, PartBRan, PartB_dpcp, PartB_rm, PartB_filt)
+
+
+if _name_ == '_main_':
+    # TODO - Run to see what is working
+    run_tests()
 
