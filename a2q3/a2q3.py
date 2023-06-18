@@ -31,3 +31,10 @@ def copy_list_of_lists(data: list) -> list:
         new_list.append(new_sublist)
     return new_list
 def copy_dict_of_dicts(data: dict) -> dict:
+    new_dict = {}
+    for key, value in data.items():
+        if isinstance(value, dict):
+            new_dict[key] = copy_dict_of_dicts(value)  # Recursively copy nested dictionaries
+        else:
+            new_dict[key] = value  # Copy non-dictionary values
+    return new_dict
