@@ -135,3 +135,26 @@ def test_gcd():
         else:
             print(f"FAIL: gcd({val1}, {val2}) returned {result}, expected {expected}")
 def test_replace():
+    test_cases = [
+
+        # Test cases with valid values
+        ("Hello, World!", "o", "x", "Hellx, Wxrld!"),  # Replace "o" with "x"
+        ("Mississippi", "ss", "pp", "Mippiippi"),  # Replace "ss" with "pp"
+        ("OpenAI", "AI", "ChatGPT", "OpenChatGPT"),  # Replace "AI" with "ChatGPT"
+        ("Hello, World!", "", "x", "Hello, World!"),  # Empty target, should return the original string
+
+        # Test cases with invalid values
+        ("Hello, World!", "loooong", "x", "Hello, World!"),  # Target not found
+        ("Hello, World!", "o", "", "Hell, Wrld!"),  # Empty replacement
+
+        # Edge case
+        ("", "x", "y", ""),  # Empty input string
+    ]
+
+    for input_str, target, replacement, expected in test_cases:
+        result = replace(input_str, target, replacement)
+        if result == expected:
+            print(f"PASS: replace('{input_str}', '{target}', '{replacement}') returned '{result}'")
+        else:
+            print(
+                f"FAIL: replace('{input_str}', '{target}', '{replacement}') returned '{result}', expected '{expected}'")
