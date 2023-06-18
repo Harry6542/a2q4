@@ -49,3 +49,17 @@ def deep_copy_list_of_dicts(data: list) -> list:
                 new_dict[key] = value
         new_list.append(new_dict)
     return new_list
+def remove_from_2DList(arr, value):
+    # Iterate over the outer list in reverse order
+    for i in range(len(arr) - 1, -1, -1):
+        inner_list = arr[i]
+
+        # Check if the value exists in the inner list
+        if value in inner_list:
+            # Remove the value from the inner list
+            inner_list.remove(value)
+
+            # Check if the inner list becomes empty after removing the value
+            if not inner_list:
+                # Remove the inner list from the outer list
+                arr.remove(inner_list)
