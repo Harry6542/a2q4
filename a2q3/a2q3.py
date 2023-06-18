@@ -63,3 +63,11 @@ def remove_from_2DList(arr, value):
             if not inner_list:
                 # Remove the inner list from the outer list
                 arr.remove(inner_list)
+    return arr
+
+def filter_from_2DList(data: list, val) -> list:
+    new_list = []
+    for sublist in data:
+        new_sublist = [element for element in sublist if element != val]
+        new_list.append(new_sublist)
+    return new_list
