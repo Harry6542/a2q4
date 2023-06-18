@@ -110,3 +110,27 @@ def sort_students_into_grades(student_list: list) -> dict:
     """
     return {}
 ################### DO NOT ALTER CODE ABOVE ###################################
+# TODO: Create tests for functions above
+# TODO Create test driver for whitebox tested functions
+# TODO: Create test driver for blackbox tested functions
+# TODO: Create test driver to test all functions
+
+# Creating tests for every functions above:
+def test_gcd():
+    test_cases = [
+        # Test cases with valid inputs
+        (10, 5, 5),  # GCD of 10 and 5 is 5
+        (24, 36, 12),  # GCD of 24 and 36 is 12
+        (81, 27, 27),  # GCD of 81 and 27 is 27
+
+        # Test cases with invalid inputs
+        (1000, 500, -1),  # Value exceeding the limit should return -1
+        (500, 1000, -1),  # Value exceeding the limit should return -1
+    ]
+
+    for val1, val2, expected in test_cases:
+        result = gcd(val1, val2)
+        if result == expected:
+            print(f"PASS: gcd({val1}, {val2}) returned {result}")
+        else:
+            print(f"FAIL: gcd({val1}, {val2}) returned {result}, expected {expected}")
