@@ -160,3 +160,26 @@ def test_replace():
                 f"FAIL: replace('{input_str}', '{target}', '{replacement}') returned '{result}', expected '{expected}'")
 
 def test_grade_letter():
+    test_cases = [
+        # Test cases with valid scores
+        (95, "A"),  # Score of 95 should result in grade "A"
+        (85, "B"),  # Score of 85 should result in grade "B"
+        (75, "C"),  # Score of 75 should result in grade "C"
+        (65, "D"),  # Score of 65 should result in grade "D"
+        (55, "F"),  # Score of 55 should result in grade "F"
+
+        # Test cases with invalid scores
+        (-10, "Invalid"),  # Negative score should result in "Invalid"
+        (110, "Invalid"),  # Score above 100 should result in "Invalid"
+
+        # Edge cases
+        (0, "F"),  # Minimum valid score
+        (100, "A"),  # Maximum valid score
+    ]
+
+    for score, expected in test_cases:
+        result = grade_letter(score)
+        if result == expected:
+            print(f"PASS: grade_letter({score}) returned '{result}'")
+        else:
+            print(f"FAIL: grade_letter({score}) returned '{result}', expected '{expected}'")
