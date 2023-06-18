@@ -71,3 +71,53 @@ def filter_from_2DList(data: list, val) -> list:
         new_sublist = [element for element in sublist if element != val]
         new_list.append(new_sublist)
     return new_list
+def test_partA():
+    def test_ls():
+        tests_ran = 0
+        fails = 0
+        # Empty List
+        case1 = []
+        case2 = [[], [3]]
+        case3 = [[1, 2, 3, 5], ["a", "b", "c", "f"]]
+        test_case = [
+            {"input": case1,
+             "output": copy_list_of_lists(case1),
+             "reason": "Empty list should not impact functions success"},
+            {"input": case2,
+             "output": copy_list_of_lists(case2),
+             "reason": "List with one internal list empty should still be able to be copied"},
+            {"input": case3,
+             "output": copy_list_of_lists(case3),
+             "reason": "References should be different since it is a list of lists"}
+        ]
+        for test in test_case:
+            # Testing references to differ
+            if test["input"] is test["output"]:
+                fails += 1
+                print("Test List Copy\nERROR: References are the same\n", test)
+            # Lists should still be equal
+            if test["input"] != test["output"]:
+                fails += 1
+                print("Test List Copy\nERROR: Values are not the same\n", test)
+            # Changing list test["input"] should not impact list in test["output"]
+            test["input"].append([-1, 2, 4])
+            if test["input"] == test["output"]:
+                fails += 1
+                print("Test List Copy\nERROR: Outer list values should no longer be the the same\n", test)
+            # Reset test["input"]
+            test["input"].remove([-1, 2, 4])
+
+            # Just ran 3 tests
+            tests_ran += 3
+
+            # Checking internal lists are also deep copied
+            if len(test["input"]) > 0 and len(test["input"][0]) > 0:
+                tests_ran += 1
+                popped = test["input"][-1].pop()
+                if test["input"] == test["output"]:
+                    fails += 1
+                    print("Test List Copy\nERROR: Inner list values should no longer be the the same\n", test)
+                # reset test["input"]
+                test["input"][-1].append(popped)
+        return tests_ran, fails
+
