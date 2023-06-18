@@ -121,3 +121,62 @@ def test_partA():
                 test["input"][-1].append(popped)
         return tests_ran, fails
 
+    def test_dict():
+        tests_ran = 0
+        fails = 0
+        # Empty List
+        case1 = {}
+        case2 = {"a": {},
+                 "b": {1: -1,
+                       2: -2}}
+        case3 = {"a": {1: 0,
+                       2: 1,
+                       3: 2},
+                 "b": {1: -1,
+                       2: -2}}
+        test_case = [
+            {"input": case1,
+             "output": copy_dict_of_dicts(case1),
+             "reason": "Empty dict should not impact function success"},
+            {"input": case2,
+             "output": copy_dict_of_dicts(case2),
+             "reason": "Dict with one internal blank dict should still be able to be copied"},
+            {"input": case3,
+             "output": copy_dict_of_dicts(case3),
+             "reason": "References should be different for internal dicts too"}
+        ]
+        for test in test_case:
+            # Testing references to differ
+            if test["input"] is test["output"]:
+                fails += 1
+                print("Test Dict Copy\nERROR: References are the same\n", test)
+            # Lists should still be equal
+            if test["input"] != test["output"]:
+                fails += 1
+                print("Test Dict Copy\nERROR: Values are not the same\n", test)
+            # Changing list test["input"] should not impact list in test["output"]
+            test["input"]["c"] = {"z": 9}
+            if test["input"] == test["output"]:
+                fails += 1
+                print("Test Dict Copy\nERROR: Outer list values should no longer be the the same\n", test)
+            # Reset test["input"]
+            test["input"].pop("c")
+
+            # Just ran 3 tests
+            tests_ran += 3
+
+        # Checking internal lists are also deep copied
+        tests_ran += 1
+        case3["a"][1] = 9
+        if case3 == test_case[2]["output"]:
+            fails += 1
+            print("Test Dict Copy\nERROR: Inner dict values should no longer be the the same\n", test)
+        # reset case3
+        case3["a"][1] = 0
+        return tests_ran, fails
+
+    ls_ran, ls_fail = test_ls()
+    dict_ran, dict_fail = test_dict()
+    return ls_ran + dict_ran, ls_fail, dict_fail
+
+
