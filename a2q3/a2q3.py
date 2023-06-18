@@ -25,3 +25,8 @@ import copy
 
 
 def copy_list_of_lists(data: list) -> list:
+    new_list = []
+    for sublist in data:
+        new_sublist = sublist.copy()
+        new_list.append(new_sublist)
+    return new_list
