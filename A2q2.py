@@ -184,3 +184,39 @@ def test_grade_letter():
         else:
             print(f"FAIL: grade_letter({score}) returned '{result}', expected '{expected}'")
 def test_sort_students_into_grades():
+    # Test pre-condition: Empty student list
+    student_list = []
+    result = sort_students_into_grades(student_list)
+    expected = {
+        "A": [],
+        "B": [],
+        "C": [],
+        "D": [],
+        "F": [],
+        "Invalid": []
+    }
+    if result == expected:
+        print("PASS: Empty student list")
+    else:
+        print("FAIL: Empty student list")
+
+    # Test post-conditions and return value
+    student_list = [
+        {"name": "John", "grade": "A"},
+        {"name": "Emily", "grade": "B"},
+        {"name": "Michael", "grade": "C"},
+        {"name": "Sarah"}
+    ]
+    result = sort_students_into_grades(student_list)
+    expected = {
+        "A": ["John"],
+        "B": ["Emily"],
+        "C": ["Michael"],
+        "D": [],
+        "F": [],
+        "Invalid": ["Sarah"]
+    }
+    if result == expected:
+        print("PASS: Student list with valid and invalid grades")
+    else:
+        print("FAIL: Student list with valid and invalid grades")
