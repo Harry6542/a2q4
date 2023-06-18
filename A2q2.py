@@ -158,3 +158,5 @@ def test_replace():
         else:
             print(
                 f"FAIL: replace('{input_str}', '{target}', '{replacement}') returned '{result}', expected '{expected}'")
+
+def test_grade_letter():
