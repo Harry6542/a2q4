@@ -15,3 +15,25 @@
 #    Testing; relevant to Chapter 5, 6, 7
 ###############################################################################
 
+# TODO: Fill in your information below
+# Name-Harry Patel
+#NSID-ozc189
+#student Number-Harry Patel
+#Course-Harry Patel
+
+################### DO NOT ALTER CODE BELOW ###################################
+def gcd(val1: int, val2: int) -> int:
+    """
+    Purpose: Find the greatest common divisor (gcd) of the two values passed in.
+    Pre-conditions:
+        :param val1: int - integer value being compared to find gcd.
+            Must be less than 1000, else returns -1
+        :param val2: int - integer value being compared to find gcd
+            Must be less than 1000, else returns -1
+    Post Conditions:
+        None
+    Return:
+        int - The greatest common positive divisor of the two numbers passed in.
+            -1 returned on failure.
+    """
+    return -1
