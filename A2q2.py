@@ -134,3 +134,4 @@ def test_gcd():
             print(f"PASS: gcd({val1}, {val2}) returned {result}")
         else:
             print(f"FAIL: gcd({val1}, {val2}) returned {result}, expected {expected}")
+def test_replace():
