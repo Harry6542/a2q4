@@ -124,7 +124,7 @@ def test_gcd():
         (81, 27, 27),  # GCD of 81 and 27 is 27
 
         # Test cases with invalid inputs
-        (1000, 500, -1),  # Value exceeding the limit should return -1
+        (1000, 500, -1),  # Value exceeding the limit should return=-1
         (500, 1000, -1),  # Value exceeding the limit should return -1
     ]
 
